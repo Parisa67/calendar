@@ -7,7 +7,7 @@ import '../controllers/loding_controller.dart';
 import '../controllers/login_controller.dart';
 import '../main.dart';
 import '../models/verify_request_view_model.dart';
-import '../services/login_servise.dart';
+import '../services/rest/login_servise.dart';
 
 class AuthPage extends StatelessWidget {
   AuthPage({Key? key}) : super(key: key);
@@ -56,8 +56,10 @@ class AuthPage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(left: 32, right: 32,),
+                  padding: const EdgeInsets.only(
+                    left: 32,
+                    right: 32,
+                  ),
                   child: Row(
                     textDirection: TextDirection.ltr,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,19 +79,22 @@ class AuthPage extends StatelessWidget {
                     ],
                   ),
                 ),
-            Obx(()=>  Visibility(
-                    visible: Get.find<AuthController>().showWarning.value,
-                    child:Row(
-                      children:const [
-                         Padding(padding: EdgeInsets.only(top:10,bottom: 10,right: 32),
-                        child:Text("*کد ورودی اشتباه میباشد. " ,style: TextStyle(fontSize: 16, color: redColor),)
-                        ),
-                      ],
-                    ),
-                  )),
-               
+                Obx(() => Visibility(
+                      visible: Get.find<AuthController>().showWarning.value,
+                      child: Row(
+                        children: const [
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  top: 10, bottom: 10, right: 32),
+                              child: Text(
+                                "*کد ورودی اشتباه میباشد. ",
+                                style: TextStyle(fontSize: 16, color: redColor),
+                              )),
+                        ],
+                      ),
+                    )),
                 Padding(
-                  padding:  const EdgeInsets.only(top: 24),
+                  padding: const EdgeInsets.only(top: 24),
                   child: GestureDetector(
                     onTap: () async {
                       if (Get.find<LoadingController>().loading.value) {
@@ -179,7 +184,7 @@ class AuthPage extends StatelessWidget {
 
   void auth(BuildContext context) async {
     FocusScope.of(context).unfocus();
-    Get.find<AuthController>().showWarning.value=false;
+    Get.find<AuthController>().showWarning.value = false;
     String tx1 = Get.find<AuthController>().textController1!.text;
     String tx2 = Get.find<AuthController>().textController2!.text;
     String tx3 = Get.find<AuthController>().textController3!.text;
@@ -196,14 +201,12 @@ class AuthPage extends StatelessWidget {
             otp: code);
         var response = await LoginServise().authorization(verifyRequest);
         if (response!.error != null) {
-         
-          if(response.error!.message!.contains('Otp is not valid.')){
-Get.find<AuthController>().showWarning.value=true;
-          }else{
-          Get.snackbar("هشدار", response.error!.message!);
-
+          if (response.error!.message!.contains('Otp is not valid.')) {
+            Get.find<AuthController>().showWarning.value = true;
+          } else {
+            Get.snackbar("هشدار", response.error!.message!);
           }
-          
+
           Get.find<AuthController>().textController1!.text = "";
           Get.find<AuthController>().textController2!.text = "";
           Get.find<AuthController>().textController3!.text = "";

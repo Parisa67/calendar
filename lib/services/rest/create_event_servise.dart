@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:calendar/models/error_view_model.dart';
 
 import 'package:http/http.dart' as http;
-import '../main.dart';
-import '../models/create_request_view_model.dart';
-import '../models/create_responses_view_model.dart';
-import '../models/response_view_model.dart';
+import '../../main.dart';
+import '../../models/create_request_view_model.dart';
+import '../../models/create_responses_view_model.dart';
+import '../../models/response_view_model.dart';
 
 class CreateEvent {
   String? serverAddress = "https://challenge.reval.me/v1/calendar/create";

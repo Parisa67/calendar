@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/loding_controller.dart';
 import '../controllers/login_controller.dart';
 import '../models/login_resquest_view_model.dart';
-import '../services/login_servise.dart';
+import '../services/rest/login_servise.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
