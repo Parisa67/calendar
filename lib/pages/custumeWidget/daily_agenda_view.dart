@@ -40,9 +40,9 @@ class DailyAgendaView extends StatelessWidget {
     var stack = Stack(
       children: [hourlyContainers],
     );
-     
+
     return Obx(() {
- for (var dailyEvent in Get.find<CalendarController>().dailyEvents) {
+      for (var dailyEvent in Get.find<CalendarController>().dailyEvents) {
         stack.children.add(getExistsEvent(dailyEvent));
       }
       return stack;
@@ -63,44 +63,44 @@ class DailyAgendaView extends StatelessWidget {
             color: darkBlueColor,
           ),
           child: Center(
-            child: ((((dailyEvent.getDurationTimeInEvent() * rowHeight) / 24)) >
-                    rowHeight)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "${dailyEvent.title!}\n${dailyEvent.start!.getTime()} تا ${dailyEvent.end!.getTime()} ${dailyEvent.end!.getAPM()}",
-                          textAlign: TextAlign.center,
-                          textDirection: TextDirection.rtl,
-                          style:
-                              const TextStyle(color: whiteColor, fontSize: 14),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                        ),
-                      )
-                    ],
-                  )
-                :Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  text(dailyEvent.title!),
-                  text("  -${dailyEvent.start!.getTime()} تا ${dailyEvent.end!.getTime()} ${dailyEvent.end!.getAPM()}"),
-                    
-                ],) 
-          ),
+              child: ((((dailyEvent.getDurationTimeInEvent() * rowHeight) /
+                          24)) >
+                      rowHeight)
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            "${dailyEvent.title!}\n${dailyEvent.start!.getTime()} تا ${dailyEvent.end!.getTime()} ${dailyEvent.end!.getAPM()}",
+                            textAlign: TextAlign.center,
+                            textDirection: TextDirection.rtl,
+                            style: const TextStyle(
+                                color: whiteColor, fontSize: 14),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        )
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        text(dailyEvent.title!),
+                        text(
+                            "  -${dailyEvent.start!.getTime()} تا ${dailyEvent.end!.getTime()} ${dailyEvent.end!.getAPM()}"),
+                      ],
+                    )),
         ));
   }
 
   Text text(String dailyEvent) {
-    return Text(
-                  dailyEvent ,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
-                  textDirection: TextDirection.rtl,
-                  style: const TextStyle(color: whiteColor, fontSize: 14));
+    return Text(dailyEvent,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.start,
+        textDirection: TextDirection.rtl,
+        style: const TextStyle(color: whiteColor, fontSize: 14));
   }
 
   Widget hourlyContainer(

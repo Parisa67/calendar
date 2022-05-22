@@ -1,26 +1,17 @@
-
-
 import 'dart:convert';
 
-class LoginResponsesViewModel{
- 
-  
+class LoginResponsesViewModel {
   String? key;
-  
- 
-LoginResponsesViewModel({this.key});
 
-Map<String, dynamic> toJson() => {
-  
-  "key": key,
+  LoginResponsesViewModel({this.key});
 
-};
-factory LoginResponsesViewModel.fromJson(String res) {
+  Map<String, dynamic> toJson() => {
+        "key": key,
+      };
+  factory LoginResponsesViewModel.fromJson(String res) {
     final json = jsonDecode(res);
-     return LoginResponsesViewModel(
-       
-       key:json['key']as String?,
-     );
-}
-
+    return LoginResponsesViewModel(
+      key: json['key'] as String?,
+    );
+  }
 }

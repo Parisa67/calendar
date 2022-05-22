@@ -1,4 +1,1 @@
-
-enum  TypeTime{
-  hour,minute,duration
-}
+enum TypeTime { hour, minute, duration }

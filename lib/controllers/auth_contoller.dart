@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AuthController extends GetxController{
+class AuthController extends GetxController {
   TextEditingController? textController1;
   TextEditingController? textController2;
   TextEditingController? textController3;
   TextEditingController? textController4;
-  String token ="";
-  RxBool showWarning=false.obs;
-  RxString messgae="".obs;
+  String token = "";
+  RxBool showWarning = false.obs;
+  RxString messgae = "".obs;
 
-  
- 
   @override
   void onInit() {
- textController1=TextEditingController();
- textController2=TextEditingController();
- textController3=TextEditingController();
- textController4=TextEditingController();
+    textController1 = TextEditingController();
+    textController2 = TextEditingController();
+    textController3 = TextEditingController();
+    textController4 = TextEditingController();
 //  subTitle=TextEditingController();
     super.onInit();
   }

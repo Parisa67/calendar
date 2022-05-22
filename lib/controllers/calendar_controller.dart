@@ -56,7 +56,8 @@ class CalendarController extends GetxController {
           EventViewModel(
               start: TimeViewModel(
                   hour: DateTime.parse(value.response.start).toLocal().hour,
-                  minute: DateTime.parse(value.response.start).toLocal().minute),
+                  minute:
+                      DateTime.parse(value.response.start).toLocal().minute),
               end: TimeViewModel(
                   hour: DateTime.parse(value.response.end).toLocal().hour,
                   minute: DateTime.parse(value.response.end).toLocal().minute),
