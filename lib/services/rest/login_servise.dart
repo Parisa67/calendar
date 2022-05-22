@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:calendar/models/error_view_model.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/login_responses_view_model.dart';
-import '../models/login_resquest_view_model.dart';
-import '../models/response_view_model.dart';
-import '../models/verify_request_view_model.dart';
-import '../models/verify_responses_view_model.dart';
+import '../../models/login_responses_view_model.dart';
+import '../../models/login_resquest_view_model.dart';
+import '../../models/response_view_model.dart';
+import '../../models/verify_request_view_model.dart';
+import '../../models/verify_responses_view_model.dart';
 
 class LoginServise{
   String? serverAddress = "https://challenge.reval.me/v1/auth/";
