@@ -7,6 +7,8 @@ class AuthController extends GetxController{
   TextEditingController? textController3;
   TextEditingController? textController4;
   String token ="";
+  RxBool showWarning=false.obs;
+  RxString messgae="".obs;
 
   
  

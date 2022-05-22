@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../controllers/auth_contoller.dart';
 import '../controllers/loding_controller.dart';
 import '../controllers/login_controller.dart';
+import '../main.dart';
 import '../models/verify_request_view_model.dart';
 import '../services/login_servise.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({Key? key}) : super(key: key);
-
+  AuthPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,128 +57,84 @@ class AuthPage extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 32, right: 32, bottom: 24),
+                      const EdgeInsets.only(left: 32, right: 32,),
                   child: Row(
                     textDirection: TextDirection.ltr,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       textField(
                         Get.find<AuthController>().textController1!,
-                        // TextInputAction.next,
-                        // (_) => FocusScope.of(context).nextFocus(),
                       ),
                       textField(
                         Get.find<AuthController>().textController2!,
-                        // TextInputAction.next,
-                        // (_) => FocusScope.of(context).nextFocus(),
                       ),
                       textField(
                         Get.find<AuthController>().textController3!,
-                        // TextInputAction.next,
-                        // (_) => FocusScope.of(context).nextFocus(),
                       ),
                       textField(
                         Get.find<AuthController>().textController4!,
-                        // TextInputAction.next,
-                        // (_) => FocusScope.of(context).nextFocus(),
                       ),
                     ],
                   ),
-                )
-                //   Padding(
-                //   padding: const EdgeInsets.only(top:48.0,bottom: 24),
-                //   child: Obx(()=>
-                //   TextField(
-                //       controller:Get.find<loginController>().textController ,
-                //       keyboardType:TextInputType.number,
-                //       style:const TextStyle(
-                //       color: blackColor,
-                //       fontSize: 14),
-                //       // textDirection: TextDirection.ltr,
-
-                //       decoration : InputDecoration(
-                //         fillColor:backgroundTextFieldColor,
-                //         filled: true,
-                //         hintStyle: const TextStyle(
-                //         color: blackColor,
-                //         fontSize: 12),
-                //        labelText:"مثال: 09365464787",
-                //        labelStyle:const  TextStyle(
-                //         color:grayColor,
-                //         fontSize: 14),
-                //         errorText:
-                //      Get.find<loginController>().showError.value
-                //     ? " *شماره‌ی تلفن همراه صحیح نمی باشد": null,
-                //        errorBorder:const  OutlineInputBorder(
-                //           borderSide: BorderSide(
-                //               color: redColor, width: 1.5),
-                //           borderRadius: BorderRadius.all(
-                //               Radius.circular(30))),
-                //         enabledBorder:const  OutlineInputBorder(
-                //           borderSide: BorderSide(color: borderColor,width: 1.5),
-                //           borderRadius: BorderRadius.all(
-                //               Radius.circular(30))),
-                //         focusedBorder:const  OutlineInputBorder(
-                //           borderSide: BorderSide(
-                //               color:borderColor ,width: 1.5),
-                //           borderRadius: BorderRadius.all(
-                //               Radius.circular(30))),
-                //         focusedErrorBorder:const  OutlineInputBorder(
-                //         borderSide: BorderSide(
-                //             color: redColor, width: 1.5),
-                //         borderRadius: BorderRadius.all(
-                //             Radius.circular(30))),
-                //       )
-                //     )
-
-                // )
-                //  ),
-
-                ,
-                GestureDetector(
-                  onTap: () async {
-                    if (Get.find<LoadingController>().loading.value) {
-                    } else {
-                      auth(context);
-                    }
-                  },
-                  child: Obx(() => Container(
-                      width: Get.width,
-                      height: 55,
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(24)),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              //     stops: [
-                              //   0.2,
-                              //   0.6,
-                              //   0.99,
-                              // ],
-                              colors: [
-                                Color(0xff4CC9F0),
-                                Color(0xff4361EE),
-                                Color(0xff3A0CA3),
-                              ])),
-                      child: Get.find<LoadingController>().loading.value
-                          ? const Padding(
-                              padding: EdgeInsets.only(
-                                  left: 150, right: 150, top: 10, bottom: 10),
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2.0,
-                                valueColor:
-                                    AlwaysStoppedAnimation(Colors.white),
-                                color: Colors.white,
-                              ),
-                            )
-                          : const Center(
-                              child: Text(
-                                "ارسال",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
-                              ),
-                            ))),
+                ),
+            Obx(()=>  Visibility(
+                    visible: Get.find<AuthController>().showWarning.value,
+                    child:Row(
+                      children:const [
+                         Padding(padding: EdgeInsets.only(top:10,bottom: 10,right: 32),
+                        child:Text("*کد ورودی اشتباه میباشد. " ,style: TextStyle(fontSize: 16, color: redColor),)
+                        ),
+                      ],
+                    ),
+                  )),
+               
+                Padding(
+                  padding:  const EdgeInsets.only(top: 24),
+                  child: GestureDetector(
+                    onTap: () async {
+                      if (Get.find<LoadingController>().loading.value) {
+                      } else {
+                        auth(context);
+                      }
+                    },
+                    child: Obx(() => Container(
+                        width: Get.width,
+                        height: 55,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                //     stops: [
+                                //   0.2,
+                                //   0.6,
+                                //   0.99,
+                                // ],
+                                colors: [
+                                  Color(0xff4CC9F0),
+                                  Color(0xff4361EE),
+                                  Color(0xff3A0CA3),
+                                ])),
+                        child: Get.find<LoadingController>().loading.value
+                            ? const Padding(
+                                padding: EdgeInsets.only(
+                                    left: 150, right: 150, top: 10, bottom: 10),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.0,
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Center(
+                                child: Text(
+                                  "ارسال",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                ),
+                              ))),
+                  ),
                 )
               ],
             ),
@@ -223,6 +179,7 @@ class AuthPage extends StatelessWidget {
 
   void auth(BuildContext context) async {
     FocusScope.of(context).unfocus();
+    Get.find<AuthController>().showWarning.value=false;
     String tx1 = Get.find<AuthController>().textController1!.text;
     String tx2 = Get.find<AuthController>().textController2!.text;
     String tx3 = Get.find<AuthController>().textController3!.text;
@@ -239,15 +196,23 @@ class AuthPage extends StatelessWidget {
             otp: code);
         var response = await LoginServise().authorization(verifyRequest);
         if (response!.error != null) {
+         
+          if(response.error!.message!.contains('Otp is not valid.')){
+Get.find<AuthController>().showWarning.value=true;
+          }else{
           Get.snackbar("هشدار", response.error!.message!);
+
+          }
+          
           Get.find<AuthController>().textController1!.text = "";
           Get.find<AuthController>().textController2!.text = "";
           Get.find<AuthController>().textController3!.text = "";
           Get.find<AuthController>().textController4!.text = "";
         } else {
-          Get.find<AuthController>().token = response.response!.token!;
+          localStorage.write('token', response.response!.token!);
+          // Get.find<AuthController>().token = response.response!.token!;
           Get.find<LoadingController>().loading.value = false;
-          Get.toNamed("/CalendarPage");
+          Get.offAllNamed("/CalendarPage");
         }
       } else {
         Get.snackbar("هشدار", "کد را به صورت کامل وارد کنید!");

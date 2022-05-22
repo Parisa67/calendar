@@ -2,6 +2,7 @@ import 'package:calendar/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/calendar_controller.dart';
 import '../controllers/event_new_controller.dart';
 import '../controllers/loding_controller.dart';
 import '../models/create_request_view_model.dart';
@@ -203,14 +204,14 @@ class NewEventPage extends StatelessWidget {
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 16.0),
-                  child: Obx(
-                    () => GestureDetector(
-                      onTap: () {
-                        Get.find<EventNew>().activeButton.value
-                            ? addEvent(context)
-                            : () {};
-                      },
-                      child: Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.find<EventNew>().activeButton.value
+                          ? addEvent(context)
+                          : () {};
+                    },
+                    child: Obx(
+                      () => Container(
                         width: Get.width,
                         height: 55,
                         decoration: BoxDecoration(
@@ -221,7 +222,7 @@ class NewEventPage extends StatelessWidget {
                         child: Get.find<LoadingController>().loading.value
                             ? const Padding(
                                 padding: EdgeInsets.only(
-                                    left: 162, right: 162, top: 10, bottom: 10),
+                                    left: 170, right: 170, top: 10, bottom: 10),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2.0,
                                   valueColor:
@@ -259,20 +260,63 @@ class NewEventPage extends StatelessWidget {
           startDateTemp.millisecond,
           startDateTemp.microsecond);
 
+      if(Get.find<EventNew>().hour.value==23 && Get.find<EventNew>().duration.value>59){
+        Get.find<EventNew>().duration.value=59;
+      }
       DateTime endDate =
           startDate.add(Duration(minutes: Get.find<EventNew>().duration.value));
       CreateEventRequestViewModel createRequest = CreateEventRequestViewModel(
         name: Get.find<EventNew>().eventNameController!.text,
-        start: startDate.toUtc().toString(),
-        end: endDate.toUtc().toString(),
+        
+        start: startDate.toUtc().toString().replaceAll(" ", "T"),
+        end: endDate.toUtc().toString().replaceAll(" ", "T"),
       );
-      var response = await CreateEvent().createEvent(createRequest);
+
+    bool isValid=true;
+    if(Get.find<CalendarController>().dailyEvents.isNotEmpty){
+var newStart =(Get.find<EventNew>().hour.value * 60) + Get.find<EventNew>().minute.value;
+    var newEnd =(endDate.hour*60)+endDate.minute;
+   
+        for( var item in Get.find<CalendarController>().dailyEvents){
+         var start =(item.start!.hour!*60)+item.start!.minute!;
+         var end =(item.end!.hour!*60)+item.end!.minute!;
+      
+          if(newStart>=start || newEnd<=end){
+            isValid=false;
+           
+          }
+       
+        }
+       
+        }
+       
+        if(isValid){
+        var response = await CreateEvent().createEvent(createRequest);
       if (response!.error != null) {
         Get.snackbar("هشدار", response.error!.message!);
       } else {
-        Get.back(result: [response]);
-        Get.back();
+          Get.find<CalendarController>().justShow.value=true;
+        Get.find<EventNew>().eventNameController!.text = "";
+        Get.find<CalendarController>().addDailyEvents(response);
+        Get.find<EventNew>().activeButton.value=false;
+        Get.back(result: response);
+        // Get.back();
       }
+
+        }else{
+          Get.snackbar("خطا", " رویداد جدید با رویدادهای دیگر همپوشانی دارد ساعت را دوباره تنظیم کنید");
+          return;
+      
+
+        }
+         
+
+       
+       
+
+
+
+      //
     } catch (e) {
       Get.snackbar("خطا", "پاسخی از سمت سرور دریافت نشد");
     } finally {

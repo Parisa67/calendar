@@ -15,10 +15,14 @@ class TimeViewModel {
     return "ب.ظ";
   }
 
-  get2Digit(int i) {
+  String get2Digit(int i) {
     if (i < 10) {
       return "0$i";
     }
     return "$i";
+  }
+
+  int getMinuteOfDay() {
+    return (hour! * 60) + minute!;
   }
 }
